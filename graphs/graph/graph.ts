@@ -37,6 +37,15 @@ class UGraphStr {
     v2.adjacent.add(v1);
   }
 
+  /** Given array of node arrays, in which each node array has 2 nodes, create
+   * edge between nodes in node arrays. */
+  addEdges(edgesArr:UGraphNodeStr[][]): void {
+
+    for(const nodePair of edgesArr){
+      this.addEdge(nodePair[0], nodePair[1])
+    }
+  }
+
   /** Remove edge between v1 and v2. */
   removeEdge(v1: UGraphNodeStr, v2: UGraphNodeStr): void {
     v1.adjacent.delete(v2);
@@ -46,6 +55,10 @@ class UGraphStr {
   /** Remove node from graph. */
   removeNode(node: UGraphNodeStr): void {
     this.nodes.delete(node);
+
+    for(const exisitingNode of this.nodes){
+      this.removeEdge(node, exisitingNode)
+    }
   }
 }
 
