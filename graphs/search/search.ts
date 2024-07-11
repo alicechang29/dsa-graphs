@@ -1,5 +1,6 @@
 import { UGraphNodeStr } from "../graph/graph";
 import { Stack } from "../common/stack";
+import { Queue } from "../common/queue";
 
 /** Return array of nodes, in DFS order (recursive version)  */
 
@@ -60,14 +61,26 @@ function iDfs(start: UGraphNodeStr): UGraphNodeStr[] {
     }
   }
 
-  return Array.from(visited);
-
+  return Array.from(visited)
 }
 
 /** Return array of nodes, in BFS order (iterative version)  */
 
 function bfs(start: UGraphNodeStr): UGraphNodeStr[] {
-  return ["todo"];
+  const toVisit = new Queue<UGraphNodeStr>([start]);
+  const visited = new Set([start]);
+
+  while (!toVisit.isEmpty()) {
+    const currNode = toVisit.dequeue();
+    for (let node of currNode.adjacent) {
+      if (!visited.has(node)) {
+        toVisit.enqueue(node);
+        visited.add(node);
+      }
+    }
+  }
+
+  return Array.from(visited)
 }
 
 
