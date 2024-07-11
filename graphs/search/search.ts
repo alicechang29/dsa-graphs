@@ -8,15 +8,18 @@ function rDfs(
     visited = new Set([start])): UGraphNodeStr[] {
 
       result = [start]
+      visited.add(start)
 
       for(const node of start.adjacent){
-        visited.add(node)
         if(!visited.has(node)){
           result.push(...rDfs(node, result, visited))
         }
+        // visited.add(node)
       }
       return result
 }
+
+// d -> b
 
 /** Return array of nodes, in DFS order (iterative version)  */
 
